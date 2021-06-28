@@ -1,13 +1,16 @@
 //
 //  AppDelegate.h
-//  Twitter
+//  twitter
 //
-//  Created by Sabrina P Meng on 6/28/21.
+//  Created by emersonmalca on 5/28/18.
+//  Copyright © 2018 Emerson Malca. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic) UIWindow *window;
 
 
 @end
