@@ -167,6 +167,9 @@
                                                     </constraints>
                                                     <state key="normal" title="Button" image="retweet-icon"/>
                                                     <state key="selected" image="retweet-icon-green"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="YKu-Z5-4Ln" eventType="touchUpInside" id="IPi-ib-lnB"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -200,6 +203,7 @@
                                             <outlet property="loveLabel" destination="HMS-Aj-Tug" id="GEp-uI-n6t"/>
                                             <outlet property="profilePictureView" destination="NeS-cp-vLE" id="mdQ-lq-miD"/>
                                             <outlet property="replyLabel" destination="2y0-q8-9L8" id="C9X-A9-Dxc"/>
+                                            <outlet property="retweetButton" destination="WL5-rR-bZK" id="Ga3-Xu-EUG"/>
                                             <outlet property="retweetLabel" destination="EZT-ym-v74" id="Fe9-BF-6Wr"/>
                                             <outlet property="tweetLabel" destination="xnr-yU-Nqg" id="ycj-YU-hXY"/>
                                             <outlet property="usernameLabel" destination="SHB-fQ-KsN" id="hRj-WH-dhO"/>
