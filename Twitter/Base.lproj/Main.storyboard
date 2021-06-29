@@ -146,6 +146,10 @@
                                                         <constraint firstAttribute="width" constant="30" id="hrd-3d-uJy"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="favor-icon"/>
+                                                    <state key="selected" image="favor-icon-red"/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="YKu-Z5-4Ln" eventType="touchUpInside" id="2As-bX-r0W"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaL-x6-enV">
                                                     <rect key="frame" x="80" y="146" width="30" height="30"/>
@@ -162,6 +166,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="tKg-TD-aB1"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="retweet-icon"/>
+                                                    <state key="selected" image="retweet-icon-green"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -191,6 +196,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="likeButton" destination="O82-Ic-8nW" id="3dM-Kc-RTD"/>
                                             <outlet property="loveLabel" destination="HMS-Aj-Tug" id="GEp-uI-n6t"/>
                                             <outlet property="profilePictureView" destination="NeS-cp-vLE" id="mdQ-lq-miD"/>
                                             <outlet property="replyLabel" destination="2y0-q8-9L8" id="C9X-A9-Dxc"/>
@@ -325,9 +331,11 @@
         <image name="close-icon" width="26" height="24"/>
         <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon" width="30" height="30"/>
+        <image name="favor-icon-red" width="30" height="30"/>
         <image name="message-icon" width="30" height="30"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
+        <image name="retweet-icon-green" width="30" height="30"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

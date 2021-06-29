@@ -87,6 +87,7 @@
     // Get appropriate tweet and set text
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
     //NSLog([NSString stringWithFormat:@"%lu", self.arrayOfTweets.count]);
+    cell.tweet = tweet;
     cell.usernameLabel.text = tweet.user.screenName;
     cell.tweetLabel.text = tweet.text;
     cell.retweetLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
