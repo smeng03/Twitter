@@ -32,7 +32,7 @@
             NSLog(@"Error composing Tweet: %@", error.localizedDescription);
         }
         else{
-            //[self.delegate didTweet:tweet];
+            [self.delegate didTweet:tweet];
             [self dismissViewControllerAnimated:true completion:nil];
             NSLog(@"Compose Tweet Success!");
         }
