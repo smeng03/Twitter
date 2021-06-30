@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
+@property (weak, nonatomic) IBOutlet UITextView *tweetLabel;
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *replyLabel;
@@ -29,6 +29,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Configuring text view, not scrollable and detects links
+    self.tweetLabel.editable = NO;
+    self.tweetLabel.dataDetectorTypes = UIDataDetectorTypeAll;
     
     // Setting nav bar title
     self.navigationItem.title = [NSString stringWithFormat:@"%@'s Tweet", self.tweet.user.name];

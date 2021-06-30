@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapRecognizer;
 
 @end
 
@@ -101,6 +102,15 @@
     cell.replyLabel.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
     cell.screenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     cell.dateLabel.text = tweet.createdAtString;
+    
+    // Configuring text view, not scrollable or editable and detects links
+    cell.tweetLabel.editable = NO;
+    cell.tweetLabel.dataDetectorTypes = UIDataDetectorTypeLink;
+    
+    // Make text view tappable
+    [cell.tweetLabel setUserInteractionEnabled:false];
+    [cell.tweetLabel addGestureRecognizer:self.tapRecognizer];
+    [cell.tweetLabel setSelectable:true];
     
     // Converting posted date to nice format and writing to UI
     NSString *postedDateString = tweet.origCreatedAtString;

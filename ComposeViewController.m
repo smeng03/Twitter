@@ -10,7 +10,7 @@
 #import "APIManager.h"
 #import "AppDelegate.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *composeTextView;
 
 @end
@@ -19,6 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.composeTextView.delegate = self;
     
     // Giving border and rounded corners to compose text view
     self.composeTextView.layer.cornerRadius = 8;
@@ -42,7 +44,6 @@
         }
     }];
 }
-
 
 
 /*
