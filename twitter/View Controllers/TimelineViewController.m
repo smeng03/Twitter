@@ -93,6 +93,8 @@
     cell.retweetLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     cell.loveLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     cell.replyLabel.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
+    cell.screenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
+    cell.dateLabel.text = tweet.createdAtString;
     
     if (tweet.favorited) {
         [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
