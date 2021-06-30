@@ -19,7 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // Giving border and rounded corners to compose text view
+    self.composeTextView.layer.cornerRadius = 8;
+    self.composeTextView.layer.borderWidth = 0.5f;
+    self.composeTextView.layer.borderColor = [[UIColor grayColor] CGColor];
 }
 
 - (IBAction)closeCompose:(id)sender {

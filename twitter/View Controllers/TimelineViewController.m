@@ -86,7 +86,8 @@
     
     // Get appropriate tweet and set text
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
-    //NSLog([NSString stringWithFormat:@"%lu", self.arrayOfTweets.count]);
+    
+    // Writing in tweet info
     cell.tweet = tweet;
     cell.usernameLabel.text = tweet.user.screenName;
     cell.tweetLabel.text = tweet.text;
@@ -96,12 +97,14 @@
     cell.screenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     cell.dateLabel.text = tweet.createdAtString;
     
+    // Checks status of favorite
     if (tweet.favorited) {
         [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
     } else {
         [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
     }
     
+    // Checks status of retweet
     if (tweet.retweeted) {
         [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
     } else {
