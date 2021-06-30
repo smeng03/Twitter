@@ -88,7 +88,7 @@
 }
 
 -(void)refreshData {
-    self.usernameLabel.text = self.tweet.user.screenName;
+    self.usernameLabel.text = self.tweet.user.name;
     self.tweetLabel.text = self.tweet.text;
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
     self.loveLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];

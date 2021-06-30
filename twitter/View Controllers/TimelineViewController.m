@@ -26,7 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     
     // Assigning data source and delegate
     self.tableView.dataSource = self;
@@ -38,6 +37,10 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(loadData) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [self loadData];
 }
 
 -(void)loadData {
@@ -91,7 +94,7 @@
     
     // Writing in tweet info
     cell.tweet = tweet;
-    cell.usernameLabel.text = tweet.user.screenName;
+    cell.usernameLabel.text = tweet.user.name;
     cell.tweetLabel.text = tweet.text;
     cell.retweetLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     cell.loveLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
