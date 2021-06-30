@@ -227,6 +227,7 @@
                                             <outlet property="screenNameLabel" destination="1qc-ic-1t9" id="Byg-Ne-NG2"/>
                                             <outlet property="tweetLabel" destination="xnr-yU-Nqg" id="ycj-YU-hXY"/>
                                             <outlet property="usernameLabel" destination="SHB-fQ-KsN" id="hRj-WH-dhO"/>
+                                            <segue destination="QpR-oS-hDL" kind="show" id="7bD-1e-Cue"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -275,6 +276,22 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1659.4202898550725" y="36.160714285714285"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="rVr-mr-sID">
+            <objects>
+                <viewController id="QpR-oS-hDL" customClass="DetailsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jrA-X3-Dz3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="2lf-8N-4t5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Soi-sX-q8r"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="THt-mR-WZz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1659" y="719"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="yM0-IR-OM0">

@@ -12,6 +12,8 @@
 #import "LoginViewController.h"
 #import "TweetCell.h"
 #import "ComposeViewController.h"
+#import "DateTools.h"
+#import "DetailsViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -97,6 +99,13 @@
     cell.screenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     cell.dateLabel.text = tweet.createdAtString;
     
+    // Converting posted date to nice format and writing to UI
+    NSString *postedDateString = tweet.origCreatedAtString;
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    dateFormat.dateFormat = @"E MMM d HH:mm:ss Z y";
+    NSDate *postedDate = [dateFormat dateFromString:postedDateString];
+    cell.dateLabel.text = postedDate.shortTimeAgoSinceNow;
+    
     // Checks status of favorite
     if (tweet.favorited) {
         [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
@@ -118,7 +127,7 @@
     
     cell.profilePictureView.image = nil;
     cell.profilePictureView.image = [UIImage imageWithData:urlData];
-    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -135,9 +144,16 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UINavigationController *navigationController = [segue destinationViewController];
-    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-    composeController.delegate = self;
+    // Identify tapped cell
+    UITableViewCell *tappedCell = sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+    
+    // Get movie corresponding to the cell
+    Tweet *tweet = self.arrayOfTweets[indexPath.row];
+    
+    // Send information
+    DetailsViewController *detailsViewController = [segue destinationViewController];
+    detailsViewController.tweet = tweet;
 }
 
 @end
