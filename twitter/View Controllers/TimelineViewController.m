@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapRecognizer;
 
 @end
 
@@ -104,13 +103,8 @@
     cell.dateLabel.text = tweet.createdAtString;
     
     // Configuring text view, not scrollable or editable and detects links
-    cell.tweetLabel.editable = NO;
-    cell.tweetLabel.dataDetectorTypes = UIDataDetectorTypeLink;
-    
-    // Make text view tappable
-    [cell.tweetLabel setUserInteractionEnabled:false];
-    [cell.tweetLabel addGestureRecognizer:self.tapRecognizer];
-    [cell.tweetLabel setSelectable:true];
+    // cell.tweetLabel.editable = NO;
+    // cell.tweetLabel.dataDetectorTypes = UIDataDetectorTypeLink;
     
     // Converting posted date to nice format and writing to UI
     NSString *postedDateString = tweet.origCreatedAtString;
@@ -157,16 +151,23 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Identify tapped cell
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    
-    // Get movie corresponding to the cell
-    Tweet *tweet = self.arrayOfTweets[indexPath.row];
-    
-    // Send information
-    DetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.tweet = tweet;
+    if ([segue.identifier  isEqual: @"toDetails"]) {
+        // Identify tapped cell
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        
+        // Get movie corresponding to the cell
+        Tweet *tweet = self.arrayOfTweets[indexPath.row];
+        
+        // Send information
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.tweet = tweet;
+    } else if ([segue.identifier  isEqual: @"toCompose"]) {
+        // Segue to compose
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    }
 }
 
 @end
