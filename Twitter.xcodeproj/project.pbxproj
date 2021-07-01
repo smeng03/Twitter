@@ -18,6 +18,7 @@
 		6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2790520BCC0380085BC29 /* LoginViewController.m */; };
 		6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2790820BCC04D0085BC29 /* TimelineViewController.m */; };
 		D90E5935268D0B6900537ABA /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90E5934268D0B6900537ABA /* DetailsViewController.m */; };
+		D912025A268E31A700717B04 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9120259268E31A700717B04 /* ProfileViewController.m */; };
 		D9201442268A5D8A007B7FE2 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9201441268A5D8A007B7FE2 /* Keys.plist */; };
 		D97F1533268A71D600728D89 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F1532268A71D600728D89 /* User.m */; };
 		D97F1536268A735A00728D89 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F1535268A735A00728D89 /* Tweet.m */; };
@@ -47,6 +48,8 @@
 		75895B6507775E8AFBEEA2D9 /* Pods-twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-twitter/Pods-twitter.debug.xcconfig"; sourceTree = "<group>"; };
 		D90E5933268D0B6900537ABA /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DetailsViewController.h; path = Pods/DetailsViewController.h; sourceTree = SOURCE_ROOT; };
 		D90E5934268D0B6900537ABA /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DetailsViewController.m; path = Pods/DetailsViewController.m; sourceTree = SOURCE_ROOT; };
+		D9120258268E31A700717B04 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Pods/ProfileViewController.h; sourceTree = SOURCE_ROOT; };
+		D9120259268E31A700717B04 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Pods/ProfileViewController.m; sourceTree = SOURCE_ROOT; };
 		D9201441268A5D8A007B7FE2 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		D97F1531268A71D600728D89 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		D97F1532268A71D600728D89 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 		6AD2790320BCC01B0085BC29 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9120258268E31A700717B04 /* ProfileViewController.h */,
+				D9120259268E31A700717B04 /* ProfileViewController.m */,
 				D90E5933268D0B6900537ABA /* DetailsViewController.h */,
 				D90E5934268D0B6900537ABA /* DetailsViewController.m */,
 				D97F153A268BBA4000728D89 /* ComposeViewController.h */,
@@ -291,6 +296,7 @@
 				6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */,
 				6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */,
 				6AD278F620BCB68B0085BC29 /* APIManager.m in Sources */,
+				D912025A268E31A700717B04 /* ProfileViewController.m in Sources */,
 				6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

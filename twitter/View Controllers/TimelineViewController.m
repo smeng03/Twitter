@@ -27,6 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Setting default number of tweets
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setInteger: 20 forKey:@"numTweets"];
+    [userDefaults synchronize];
+    
     // Assigning data source and delegate
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -92,49 +97,8 @@
     // Get appropriate tweet and set text
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
     
-    // Writing in tweet info
-    cell.tweet = tweet;
-    cell.usernameLabel.text = tweet.user.name;
-    cell.tweetLabel.text = tweet.text;
-    cell.retweetLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-    cell.loveLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
-    cell.replyLabel.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
-    cell.screenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
-    cell.dateLabel.text = tweet.createdAtString;
-    
-    // Configuring text view, not scrollable or editable and detects links
-    // cell.tweetLabel.editable = NO;
-    // cell.tweetLabel.dataDetectorTypes = UIDataDetectorTypeLink;
-    
-    // Converting posted date to nice format and writing to UI
-    NSString *postedDateString = tweet.origCreatedAtString;
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    dateFormat.dateFormat = @"E MMM d HH:mm:ss Z y";
-    NSDate *postedDate = [dateFormat dateFromString:postedDateString];
-    cell.dateLabel.text = postedDate.shortTimeAgoSinceNow;
-    
-    // Checks status of favorite
-    if (tweet.favorited) {
-        [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
-    } else {
-        [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
-    }
-    
-    // Checks status of retweet
-    if (tweet.retweeted) {
-        [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
-    } else {
-        [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
-    }
-    
-    // Retrieve image and set image
-    NSString *URLString = tweet.user.profilePicture;
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    
-    cell.profilePictureView.image = nil;
-    cell.profilePictureView.image = [UIImage imageWithData:urlData];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    // Updating cell attributes
+    [cell setCell:tweet];
     
     return cell;
 }
@@ -146,6 +110,20 @@
 -(void)didTweet:(Tweet *)tweet {
     [self.arrayOfTweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row + 1 == [self.arrayOfTweets count]){
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        // Load 20 new tweets if end of loaded feed is reached, cannot oad more than 200 tweets (Twitter API policy)
+        if ([self.arrayOfTweets count] <= 180) {
+            [userDefaults setInteger: [self.arrayOfTweets count] + 20 forKey:@"numTweets"];
+            [userDefaults synchronize];
+        }
+        
+        // Reload data
+        [self loadData];
+    }
 }
 
 #pragma mark - Navigation

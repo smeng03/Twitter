@@ -50,15 +50,29 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *tweetCount = [NSNumber numberWithInteger:[defaults integerForKey:@"numTweets"]];
+    NSDictionary *parameters = @{@"count": tweetCount};
     
     [self GET:@"1.1/statuses/home_timeline.json"
-       parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+       parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
            // Success
            NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
            completion(tweets, nil);
        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
            // There was a problem
            completion(nil, error);
+    }];
+}
+
+-(void)getUserProfileWithCompletion:(void(^)(NSDictionary *profileDict, NSError *error))completion {
+    NSString *urlString = @"1.1/account/verify_credentials.json";
+    
+    [self POST:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable profileDict) {
+        // NSDictionary *profileDict = [[NSDictionary alloc] init];
+        completion(profileDict, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
     }];
 }
 

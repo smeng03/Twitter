@@ -8,6 +8,7 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
+#import "DateTools.h"
 
 @implementation TweetCell
 
@@ -96,11 +97,54 @@
     
     // Retrieve image and set image
     NSString *URLString = self.tweet.user.profilePicture;
+    [URLString stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     
     self.profilePictureView.image = nil;
     self.profilePictureView.image = [UIImage imageWithData:urlData];
+}
+
+-(void)setCell:(Tweet *) tweet {
+    // Writing in tweet info
+    self.tweet = tweet;
+    self.usernameLabel.text = tweet.user.name;
+    self.tweetLabel.text = tweet.text;
+    self.retweetLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    self.loveLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    self.replyLabel.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
+    self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
+    self.dateLabel.text = tweet.createdAtString;
+    
+    // Converting posted date to nice format and writing to UI
+    NSString *postedDateString = tweet.origCreatedAtString;
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    dateFormat.dateFormat = @"E MMM d HH:mm:ss Z y";
+    NSDate *postedDate = [dateFormat dateFromString:postedDateString];
+    self.dateLabel.text = postedDate.shortTimeAgoSinceNow;
+    
+    // Checks status of favorite
+    if (tweet.favorited) {
+        [self.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
+    } else {
+        [self.likeButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
+    }
+    
+    // Checks status of retweet
+    if (tweet.retweeted) {
+        [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+    } else {
+        [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+    }
+    
+    // Retrieve image and set image
+    NSString *URLString = tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    
+    self.profilePictureView.image = nil;
+    self.profilePictureView.image = [UIImage imageWithData:urlData];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 
