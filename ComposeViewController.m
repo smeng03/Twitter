@@ -12,6 +12,8 @@
 
 @interface ComposeViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *composeTextView;
+@property (weak, nonatomic) IBOutlet UILabel *charLabel;
+@property (strong, nonatomic) NSNumber *tweetLength;
 
 @end
 
@@ -19,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.charLabel.text = @"0/280";
     
     self.composeTextView.delegate = self;
     
@@ -33,16 +37,53 @@
 }
 
 - (IBAction)postTweet:(id)sender {
-    [[APIManager shared]postStatusWithText:self.composeTextView.text completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-            NSLog(@"Error composing Tweet: %@", error.localizedDescription);
-        }
-        else{
-            [self.delegate didTweet:tweet];
-            [self dismissViewControllerAnimated:true completion:nil];
-            NSLog(@"Compose Tweet Success!");
-        }
-    }];
+    int tweetLength = [self.tweetLength intValue];
+    if (tweetLength > 280) {
+        // Display error if over limit
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Text Limit Exceeded" message:@"Your tweet must contain at most 280 characters."
+            preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault
+            handler:^(UIAlertAction * action) {}];
+
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [[APIManager shared]postStatusWithText:self.composeTextView.text completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                NSLog(@"Error composing Tweet: %@", error.localizedDescription);
+            }
+            else{
+                [self.delegate didTweet:tweet];
+                [self dismissViewControllerAnimated:true completion:nil];
+                NSLog(@"Compose Tweet Success!");
+            }
+        }];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    // Set the max character limit
+    int characterLimit = 280;
+
+    // Construct what the new text would be if we allowed the user's latest edit
+    NSString *newText = [self.composeTextView.text stringByReplacingCharactersInRange:range withString:text];
+
+    // Update character count label
+    self.charLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)newText.length, characterLimit];
+    self.tweetLength = [NSNumber numberWithInteger:newText.length];
+    
+    // Red letters if you are over limlit
+    if (newText.length > characterLimit) {
+        self.charLabel.textColor = [UIColor redColor];
+    } else {
+        self.charLabel.textColor = [UIColor systemGrayColor];
+    }
+    
+    
+    // Should the new text should be allowed? True/False
+    // return newText.length < characterLimit;
+    return true;
 }
 
 

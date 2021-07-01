@@ -443,7 +443,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Compose a Tweet..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xi1-Cs-1BK">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xi1-Cs-1BK">
                                 <rect key="frame" x="20" y="76" width="374" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -453,12 +453,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ai7-Xg-TFD">
+                                <rect key="frame" x="347" y="386" width="47" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="422-pT-sbn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Ai7-Xg-TFD" firstAttribute="top" secondItem="Xi1-Cs-1BK" secondAttribute="bottom" constant="10" id="Esh-As-jAl"/>
                             <constraint firstItem="Xi1-Cs-1BK" firstAttribute="leading" secondItem="422-pT-sbn" secondAttribute="leading" constant="20" id="HbH-9G-2fU"/>
                             <constraint firstItem="Xi1-Cs-1BK" firstAttribute="top" secondItem="422-pT-sbn" secondAttribute="top" constant="20" id="X9Y-IC-IaS"/>
+                            <constraint firstItem="Ai7-Xg-TFD" firstAttribute="trailing" secondItem="Xi1-Cs-1BK" secondAttribute="trailing" id="ebA-bR-lKy"/>
                             <constraint firstItem="422-pT-sbn" firstAttribute="trailing" secondItem="Xi1-Cs-1BK" secondAttribute="trailing" constant="20" id="epZ-Yb-hwK"/>
                         </constraints>
                     </view>
@@ -475,6 +483,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="charLabel" destination="Ai7-Xg-TFD" id="uSl-FS-RkX"/>
                         <outlet property="composeTextView" destination="Xi1-Cs-1BK" id="wma-Eo-fhU"/>
                     </connections>
                 </viewController>
