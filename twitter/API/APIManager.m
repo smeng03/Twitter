@@ -68,7 +68,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 -(void)getUserProfileWithCompletion:(void(^)(NSDictionary *profileDict, NSError *error))completion {
     NSString *urlString = @"1.1/account/verify_credentials.json";
     
-    [self POST:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable profileDict) {
+    [self GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable profileDict) {
         // NSDictionary *profileDict = [[NSDictionary alloc] init];
         completion(profileDict, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

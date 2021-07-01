@@ -9,6 +9,7 @@
 #import "TweetCell.h"
 #import "APIManager.h"
 #import "DateTools.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation TweetCell
 
@@ -137,6 +138,20 @@
         [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
     }
     
+    // Retrieve media
+    NSString *mediaURLString = tweet.media[0][@"media_url_https"];
+    NSURL *mediaURL = [NSURL URLWithString:mediaURLString];
+    NSData *mediaURLData = [NSData dataWithContentsOfURL:mediaURL];
+    
+    self.mediaView.image = nil;
+    if (mediaURLData) {
+        // CGFloat width = [UIScreen mainScreen].bounds.size.width;
+        self.mediaView.image = [UIImage imageWithData:mediaURLData];
+    }
+    
+    self.mediaView.layer.cornerRadius = 10;
+    self.mediaView.clipsToBounds = YES;
+    
     // Retrieve image and set image
     NSString *URLString = tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
@@ -144,6 +159,9 @@
     
     self.profilePictureView.image = nil;
     self.profilePictureView.image = [UIImage imageWithData:urlData];
+    self.mediaView.layer.cornerRadius = 5;
+    self.mediaView.clipsToBounds = YES;
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
