@@ -56,15 +56,19 @@ Please list two areas of the assignment you'd like to **discuss further with you
 Here's a walkthrough of implemented user stories:
 
 Main app functionality:
+
 <img src="twitter.gif">
 
 Screen rotation:
+
 ![](https://i.imgur.com/ftSaccY.gif)
 
 Login/logout:
+
 ![](https://i.imgur.com/YFeLgnS.gif)
 
 Icon and launch screen:
+
 ![](https://i.imgur.com/G2cyFrG.gif)
 
 
