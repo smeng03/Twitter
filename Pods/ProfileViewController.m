@@ -8,14 +8,18 @@
 
 #import "ProfileViewController.h"
 #import "APIManager.h"
+#import "Tweet.h"
+#import "TweetProfileCell.h"
 
-@interface ProfileViewController ()
+@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfTweetsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberFollowingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberFollowersLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 
 @end
 
@@ -24,7 +28,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
     [self retrieveUserProfile];
+    
+    [self loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self retrieveUserProfile];
+    [self loadData];
 }
 
 - (void)retrieveUserProfile {
@@ -32,6 +46,11 @@
         if (profileDict) {
             // Nav title
             self.navigationItem.title = profileDict[@"name"];
+            
+            // ID
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject: profileDict[@"id"] forKey:@"userID"];
+            [userDefaults synchronize];
             
             // Profile picture
             NSString *URLString = profileDict[@"profile_image_url_https"];
@@ -60,6 +79,21 @@
     }];
 }
 
+- (void)loadData {
+    [[APIManager shared] getUserTimelineWithCompletion:^(NSArray *tweetArray, NSError *error) {
+        if (tweetArray) {
+            self.arrayOfTweets = [Tweet tweetsWithArray:tweetArray];
+            
+            // Reloading data
+            [self.tableView reloadData];
+            
+            NSLog(@"😎😎😎 Successfully loaded home timeline");
+        } else {
+            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+        }
+    }];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -69,5 +103,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    // Table view dequeueing
+    TweetProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetProfileCell"];
+    
+    // Get appropriate tweet and set text
+    Tweet *tweet = self.arrayOfTweets[indexPath.row];
+    
+    // Updating cell attributes
+    [cell setCell:tweet];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // NSLog(@"%@", self.arrayOfTweets.count);
+    return self.arrayOfTweets.count;
+}
 
 @end

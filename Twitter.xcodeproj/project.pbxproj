@@ -19,6 +19,7 @@
 		6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2790820BCC04D0085BC29 /* TimelineViewController.m */; };
 		D90E5935268D0B6900537ABA /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D90E5934268D0B6900537ABA /* DetailsViewController.m */; };
 		D912025A268E31A700717B04 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9120259268E31A700717B04 /* ProfileViewController.m */; };
+		D9120260268E93E600717B04 /* TweetProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D912025F268E93E600717B04 /* TweetProfileCell.m */; };
 		D9201442268A5D8A007B7FE2 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9201441268A5D8A007B7FE2 /* Keys.plist */; };
 		D97F1533268A71D600728D89 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F1532268A71D600728D89 /* User.m */; };
 		D97F1536268A735A00728D89 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F1535268A735A00728D89 /* Tweet.m */; };
@@ -50,6 +51,8 @@
 		D90E5934268D0B6900537ABA /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DetailsViewController.m; path = Pods/DetailsViewController.m; sourceTree = SOURCE_ROOT; };
 		D9120258268E31A700717B04 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Pods/ProfileViewController.h; sourceTree = SOURCE_ROOT; };
 		D9120259268E31A700717B04 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Pods/ProfileViewController.m; sourceTree = SOURCE_ROOT; };
+		D912025E268E93E600717B04 /* TweetProfileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TweetProfileCell.h; path = Pods/TweetProfileCell.h; sourceTree = SOURCE_ROOT; };
+		D912025F268E93E600717B04 /* TweetProfileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TweetProfileCell.m; path = Pods/TweetProfileCell.m; sourceTree = SOURCE_ROOT; };
 		D9201441268A5D8A007B7FE2 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		D97F1531268A71D600728D89 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		D97F1532268A71D600728D89 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 		6AD278D720BC4B950085BC29 /* twitter */ = {
 			isa = PBXGroup;
 			children = (
+				D912025E268E93E600717B04 /* TweetProfileCell.h */,
+				D912025F268E93E600717B04 /* TweetProfileCell.m */,
 				6AD2790320BCC01B0085BC29 /* View Controllers */,
 				6AD278FF20BCBF280085BC29 /* Views */,
 				6AD278F720BCB6900085BC29 /* API */,
@@ -298,6 +303,7 @@
 				6AD278F620BCB68B0085BC29 /* APIManager.m in Sources */,
 				D912025A268E31A700717B04 /* ProfileViewController.m in Sources */,
 				6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */,
+				D9120260268E93E600717B04 /* TweetProfileCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

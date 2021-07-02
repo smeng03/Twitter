@@ -90,7 +90,6 @@
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
     // Table view dequeueing
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     

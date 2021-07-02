@@ -69,8 +69,21 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     NSString *urlString = @"1.1/account/verify_credentials.json";
     
     [self GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable profileDict) {
-        // NSDictionary *profileDict = [[NSDictionary alloc] init];
         completion(profileDict, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+}
+
+-(void)getUserTimelineWithCompletion:(void(^)(NSArray *tweetArray, NSError *error))completion {
+    NSString *urlString = @"1.1/statuses/user_timeline.json";
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *userID = [defaults objectForKey:@"userID"];
+    NSDictionary *parameters = @{@"user_id": userID};
+    
+    [self GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetArray) {
+        NSLog(@"%@", tweetArray);
+        completion(tweetArray, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(nil, error);
     }];
