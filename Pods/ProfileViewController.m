@@ -28,26 +28,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Setting table view delegate and data source
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    // Retrieve profile info
     [self retrieveUserProfile];
     
+    // Load tweet data
     [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    // Refresh view whenever visited
     [self retrieveUserProfile];
     [self loadData];
 }
 
 - (void)retrieveUserProfile {
+    // API request to get user profile info
     [[APIManager shared] getUserProfileWithCompletion:^(NSDictionary *profileDict, NSError *error) {
         if (profileDict) {
             // Nav title
             self.navigationItem.title = profileDict[@"name"];
             
-            // ID
+            // User ID
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject: profileDict[@"id"] forKey:@"userID"];
             [userDefaults synchronize];
@@ -80,8 +85,10 @@
 }
 
 - (void)loadData {
+    // API request to get user tweet info
     [[APIManager shared] getUserTimelineWithCompletion:^(NSArray *tweetArray, NSError *error) {
         if (tweetArray) {
+            // Convert array of dictionaries to array of tweets
             self.arrayOfTweets = [Tweet tweetsWithArray:tweetArray];
             
             // Reloading data
@@ -118,7 +125,6 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // NSLog(@"%@", self.arrayOfTweets.count);
     return self.arrayOfTweets.count;
 }
 

@@ -24,6 +24,8 @@
              // Change tweet to original tweet
              dictionary = originalTweet;
          }
+         
+         // Initializing tweet properties
          self.idStr = dictionary[@"id_str"];
          self.text = dictionary[@"text"];
          self.favoriteCount = [dictionary[@"favorite_count"] intValue];
@@ -57,6 +59,7 @@
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)dictionaries{
     NSMutableArray *tweets = [NSMutableArray array];
+    // Turns array of tweet dictionaries into array of tweet objects
     for (NSDictionary *dictionary in dictionaries) {
         Tweet *tweet = [[Tweet alloc] initWithDictionary:dictionary];
         [tweets addObject:tweet];

@@ -26,11 +26,14 @@
 
 - (IBAction)didTapFavorite:(id)sender {
     if (self.tweet.favorited) {
+        // Tweet is now unfavorited, decrement by 1
         self.tweet.favorited = false;
         self.tweet.favoriteCount -= 1;
         
+        // Set gray like button
         [self.likeButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
         
+        // Post unfavoriting to server
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
@@ -41,10 +44,14 @@
              }
         }];
     } else {
+        // Tweet is now favorited, increment by 1
         self.tweet.favorited = true;
         self.tweet.favoriteCount += 1;
+        
+        // Set red like button
         [self.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
         
+        // Post favoriting to server
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
@@ -59,10 +66,14 @@
 
 - (IBAction)didTapRetweet:(id)sender {
     if (self.tweet.retweeted) {
+        // Tweet is now unretweeted, decrement by 1
         self.tweet.retweeted = false;
         self.tweet.retweetCount -= 1;
+        
+        // Set gray retweet button
         [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
         
+        // Post unretweeting to server
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
@@ -73,10 +84,14 @@
              }
          }];
     } else {
+        // Tweet is now retweeted
         self.tweet.retweeted = true;
         self.tweet.retweetCount += 1;
+        
+        // Set green retween button
         [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
         
+        // Post retweet to server
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
@@ -90,6 +105,7 @@
 }
 
 -(void)refreshData {
+    // Refreshes tweet cell
     self.usernameLabel.text = self.tweet.user.name;
     self.tweetLabel.text = self.tweet.text;
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
@@ -102,6 +118,7 @@
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     
+    // Setting profile image
     self.profilePictureView.image = nil;
     self.profilePictureView.image = [UIImage imageWithData:urlData];
 }
@@ -162,6 +179,7 @@
     self.mediaView.layer.cornerRadius = 5;
     self.mediaView.clipsToBounds = YES;
     
+    // Set selection style to none so that cells are not highlighted when clicked
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 

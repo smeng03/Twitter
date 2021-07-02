@@ -36,6 +36,7 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    // Loading in tweet data
     [self loadData];
     
     // Pull to refresh setup
@@ -45,6 +46,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    // Refreshing data whenever opened
     [self loadData];
 }
 
@@ -59,12 +61,6 @@
             [self.tableView reloadData];
             
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            /*
-            for (NSDictionary *dictionary in tweets) {
-                NSString *text = dictionary[@"text"];
-                NSLog(@"%@", text);
-            }
-            */
             
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
@@ -112,9 +108,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    // Checking if end of timeline has been reached
     if(indexPath.row + 1 == [self.arrayOfTweets count]){
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        // Load 20 new tweets if end of loaded feed is reached, cannot oad more than 200 tweets (Twitter API policy)
+        // Load 20 new tweets if end of loaded feed is reached, cannot load more than 200 tweets (Twitter API policy)
         if ([self.arrayOfTweets count] <= 180) {
             [userDefaults setInteger: [self.arrayOfTweets count] + 20 forKey:@"numTweets"];
             [userDefaults synchronize];
@@ -133,7 +130,7 @@
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         
-        // Get movie corresponding to the cell
+        // Get tweet corresponding to the cell
         Tweet *tweet = self.arrayOfTweets[indexPath.row];
         
         // Send information

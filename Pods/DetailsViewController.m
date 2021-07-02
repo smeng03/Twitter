@@ -79,10 +79,12 @@
 // Controls retweet button
 - (IBAction)didTapRetweet:(id)sender {
     if (self.tweet.retweeted) {
+        // Unretweeted, decrement, gray retweet button
         self.tweet.retweeted = false;
         self.tweet.retweetCount -= 1;
         [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
         
+        // Post unretweet to server
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
@@ -93,10 +95,12 @@
              }
          }];
     } else {
+        // Retweeted, increment, green retweet button
         self.tweet.retweeted = true;
         self.tweet.retweetCount += 1;
         [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
         
+        // Post retweet to server
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
@@ -112,11 +116,12 @@
 // Controls favorite button
 - (IBAction)didTapFavorite:(id)sender {
     if (self.tweet.favorited) {
+        // Unfavorited, decrement, gray favorite button
         self.tweet.favorited = false;
         self.tweet.favoriteCount -= 1;
-        
         [self.likeButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
         
+        // Post unfavoriting to server
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
@@ -127,10 +132,12 @@
              }
         }];
     } else {
+        // Favorited, increment, red favorite button
         self.tweet.favorited = true;
         self.tweet.favoriteCount += 1;
         [self.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
         
+        // Post favoriting to server
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
              if(error){
                   NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
@@ -144,6 +151,7 @@
 }
 
 -(void)refreshData {
+    // Refreshes tweet cell data
     self.usernameLabel.text = self.tweet.user.screenName;
     self.tweetLabel.text = self.tweet.text;
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];

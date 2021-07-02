@@ -65,6 +65,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Gets basic profile information the user
 -(void)getUserProfileWithCompletion:(void(^)(NSDictionary *profileDict, NSError *error))completion {
     NSString *urlString = @"1.1/account/verify_credentials.json";
     
@@ -75,6 +76,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Gets tweets of the user
 -(void)getUserTimelineWithCompletion:(void(^)(NSArray *tweetArray, NSError *error))completion {
     NSString *urlString = @"1.1/statuses/user_timeline.json";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -89,6 +91,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Allows posting of tweet
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion{
     NSString *urlString = @"1.1/statuses/update.json";
     NSDictionary *parameters = @{@"status": text};
@@ -101,8 +104,8 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Allows favoriting of tweet
 - (void)favorite:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
-
     NSString *urlString = @"1.1/favorites/create.json";
     NSDictionary *parameters = @{@"id": tweet.idStr};
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
@@ -113,8 +116,8 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Allows unfavoriting of tweet
 - (void)unfavorite:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
-
     NSString *urlString = @"1.1/favorites/destroy.json";
     NSDictionary *parameters = @{@"id": tweet.idStr};
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
@@ -125,8 +128,8 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Allows retweeting
 - (void)retweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
-
     NSString *urlString = @"1.1/statuses/retweet.json";
     NSDictionary *parameters = @{@"id": tweet.idStr};
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
@@ -137,8 +140,8 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+// Allows unretweeting
 - (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
-
     NSString *urlString = @"1.1/statuses/unretweet.json";
     NSDictionary *parameters = @{@"id": tweet.idStr};
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {

@@ -22,11 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Initially no characters written
     self.charLabel.text = @"0/280";
     
+    // Setting view controller as composeTextView delegate
     self.composeTextView.delegate = self;
     
-    // Giving border and rounded corners to compose text view
+    // Giving border, border color, and rounded corners to compose text view
     self.composeTextView.layer.cornerRadius = 8;
     self.composeTextView.layer.borderWidth = 0.5f;
     self.composeTextView.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -37,6 +39,7 @@
 }
 
 - (IBAction)postTweet:(id)sender {
+    // Getting length of composed tweet
     int tweetLength = [self.tweetLength intValue];
     if (tweetLength > 280) {
         // Display error if over limit
@@ -49,6 +52,7 @@
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
+        // Otherwise, make API call to post tweet
         [[APIManager shared]postStatusWithText:self.composeTextView.text completion:^(Tweet *tweet, NSError *error) {
             if(error){
                 NSLog(@"Error composing Tweet: %@", error.localizedDescription);
@@ -80,9 +84,7 @@
         self.charLabel.textColor = [UIColor systemGrayColor];
     }
     
-    
-    // Should the new text should be allowed? True/False
-    // return newText.length < characterLimit;
+    // I've decided to always allow users to edit but to display a warning and prevent posting if char limit exceeded
     return true;
 }
 
