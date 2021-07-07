@@ -10,6 +10,7 @@
 #import "APIManager.h"
 #import "DateTools.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ProfileViewController.h"
 
 @implementation TweetProfileCell
 

@@ -34,15 +34,11 @@
     
     // Retrieve profile info
     [self retrieveUserProfile];
-    
-    // Load tweet data
-    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     // Refresh view whenever visited
     [self retrieveUserProfile];
-    [self loadData];
 }
 
 - (void)retrieveUserProfile {
@@ -54,8 +50,11 @@
             
             // User ID
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject: profileDict[@"id"] forKey:@"userID"];
+            [userDefaults setObject:profileDict[@"id"] forKey:@"userID"];
             [userDefaults synchronize];
+            
+            // Load tweet data
+            [self loadData];
             
             // Profile picture
             NSString *URLString = profileDict[@"profile_image_url_https"];
